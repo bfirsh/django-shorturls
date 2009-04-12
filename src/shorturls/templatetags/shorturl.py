@@ -26,19 +26,19 @@ class ShortURL(template.Node):
             prefix = self.get_prefix(obj)
         except (AttributeError, KeyError):
             return ''
-    
+        
+        tinyid = base62.from_decimal(obj.pk)
+                
+        if hasattr(settings, 'SHORT_BASE_URL') and settings.SHORT_BASE_URL:
+            return urlparse.urljoin(settings.SHORT_BASE_URL, prefix+)
+        
         try:
-            url = urlresolvers.reverse('shorturls.views.redirect', kwargs = {
+            return urlresolvers.reverse('shorturls.views.redirect', kwargs = {
                 'prefix': prefix,
-                'tiny': base62.from_decimal(obj.pk)
+                'tiny': tinyid
             })
         except urlresolvers.NoReverseMatch:
             return ''
-        
-        if hasattr(settings, 'SHORT_BASE_URL') and settings.SHORT_BASE_URL:
-            return urlparse.urljoin(settings.SHORT_BASE_URL, url)
-        else:
-            return url
             
     def get_prefix(self, model):
         if not hasattr(self.__class__, '_prefixmap'):
