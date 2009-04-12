@@ -1,0 +1,28 @@
+[{
+  "model": "shorturls.animal",
+  "pk": 12345,
+  "fields": {
+    "name": "Bear"
+  }
+},
+{
+  "model": "shorturls.animal",
+  "pk": 54321,
+  "fields": {
+    "name": "Frog"
+  }
+},
+{
+  "model": "shorturls.vegetable",
+  "pk": 785,
+  "fields": {
+    "name": "eggplant"
+  }
+},
+{
+  "model": "shorturls.mineral",
+  "pk": 10101,
+  "fields": {
+    "name": "granite"
+  }
+}]
