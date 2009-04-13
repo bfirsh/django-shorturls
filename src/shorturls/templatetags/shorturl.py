@@ -30,7 +30,7 @@ class ShortURL(template.Node):
         tinyid = base62.from_decimal(obj.pk)
                 
         if hasattr(settings, 'SHORT_BASE_URL') and settings.SHORT_BASE_URL:
-            return urlparse.urljoin(settings.SHORT_BASE_URL, prefix+)
+            return urlparse.urljoin(settings.SHORT_BASE_URL, prefix+tinyid)
         
         try:
             return urlresolvers.reverse('shorturls.views.redirect', kwargs = {
