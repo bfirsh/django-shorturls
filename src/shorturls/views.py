@@ -34,7 +34,7 @@ def redirect(request, prefix, tiny):
     # actually returns a domain-relative URL -- into a fully qualified one.
     
     # If we got a fully-qualified URL, sweet.
-    if urlparse.urlsplit(url).scheme:
+    if urlparse.urlsplit(url)[0]:
         return HttpResponsePermanentRedirect(url)
     
     # Otherwise, we need to make a full URL by prepending a base URL.
