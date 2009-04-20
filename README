@@ -1,7 +1,7 @@
 django-shorturls
 ================
 
-A custom URL shortening app for Django, including easy ``rev=cannonical``
+A custom URL shortening app for Django, including easy ``rev=canonical``
 support.
 
 Most code was originally by Simon Willison; see
@@ -40,7 +40,7 @@ So, you want to host your own short URLs on your Django site:
 3. If you'd like to quickly link to shortened URLs in your templates, stick
    ``"shorturls"`` in ``INSTALLED_APPS``, and then in your templates do::
    
-        {% load shorturls %}
+        {% load shorturl %}
         <a href="{% shorturl object %}">...</a>
         
    (where ``object`` is a model instance).
@@ -48,7 +48,7 @@ So, you want to host your own short URLs on your Django site:
    Alternatively::
   
         {% load shorturls %}
-        {% recanonical object %}
+        {% revcanonical object %}
         
    This generates the whole ``<link rev="canonical" href="...">`` tag for
    you.
