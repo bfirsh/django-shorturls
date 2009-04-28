@@ -59,6 +59,7 @@ base62 = BaseConverter(
 
 if __name__ == '__main__':
     nums = [-10 ** 10, 10 ** 10] + range(-100, 100)
-    for convertor in [bin, hexconv, base62]:
+    for c in [bin, hexconv, base62]:
         for i in nums:
-            assert i == bin.to_decimal(bin.from_decimal(i)), '%s failed' % i
+            assert i == c.to_decimal(c.from_decimal(i)), '%s failed' % i
+
