@@ -47,7 +47,7 @@ So, you want to host your own short URLs on your Django site:
   
    Alternatively::
   
-        {% load shorturls %}
+        {% load shorturl %}
         {% revcanonical object %}
         
    This generates the whole ``<link rev="canonical" href="...">`` tag for
