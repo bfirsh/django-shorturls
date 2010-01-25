@@ -1,5 +1,4 @@
 from django.conf import settings
-from django.http import Http404
 from django.test import TestCase
 from shorturls.baseconv import base62
 
