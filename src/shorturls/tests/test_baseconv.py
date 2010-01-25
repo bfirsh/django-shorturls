@@ -17,3 +17,18 @@ class BaseConvTests(unittest.TestCase):
         
     def test_base62(self):
         self._test_converter(baseconv.base62)
+    
+    def test_base32(self):
+        self._test_converter(baseconv.base32)
+    
+    def test_base32_mappings(self):
+        converter = baseconv.base32
+        self.assertEqual(
+            converter.from_decimal(converter.to_decimal('Fo9')),
+            'f09'
+        )
+        self.assertEqual(
+            converter.from_decimal(converter.to_decimal('43FG5i2L')),
+            '43fg5121'
+        )
+    

@@ -14,6 +14,7 @@ Sample usage:
 
 class BaseConverter(object):
     decimal_digits = "0123456789"
+    decode_mapping = {}
     
     def __init__(self, digits):
         self.digits = digits
@@ -22,6 +23,14 @@ class BaseConverter(object):
         return self.convert(i, self.decimal_digits, self.digits)
     
     def to_decimal(self, s):
+        if self.decode_mapping:
+            new = ''
+            for digit in s:
+                if digit in self.decode_mapping:
+                    new += self.decode_mapping[digit]
+                else:
+                    new += digit
+            s = new
         return int(self.convert(s, self.digits, self.decimal_digits))
     
     def convert(number, fromdigits, todigits):
@@ -56,3 +65,22 @@ hexconv = BaseConverter('0123456789ABCDEF')
 base62 = BaseConverter(
     'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz'
 )
+
+class Base32Converter(BaseConverter):
+    """
+    http://www.crockford.com/wrmg/base32.html
+    """
+    decode_mapping = {
+        'o': '0',
+        'i': '1',
+        'l': '1',
+    }
+    
+    def __init__(self):
+        super(Base32Converter, self).__init__('0123456789abcdefghjkmnpqrstvwxyz')
+    
+    def to_decimal(self, s):
+        return super(Base32Converter, self).to_decimal(s.lower())
+
+base32 = Base32Converter()
+
