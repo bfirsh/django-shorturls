@@ -81,3 +81,9 @@ Available settings are:
     If not defined, the redirect view will try to guess the proper domain by
     consulting the ``django.contrib.sites`` framework, if installed, or the
     requested domain, if not.
+
+``SHORTURLS_DEFAULT_CONVERTER``
+    The converter instance that the view and template tags use by default.
+    Defaults to the built in base 62 conversion.
+    
+    For example, Douglas Crockford's base 32 is ``shorturls.baseconv.base32``.
