@@ -3,7 +3,7 @@ from django.conf import settings
 from django.test import TestCase
 from shorturls.tests.models import Animal, Vegetable, Mineral
 
-class RedirectViewTestCase(TestCase):
+class TemplateTagTestCase(TestCase):
     urls = 'shorturls.urls'
     fixtures = ['shorturls-test-data.json']
 
