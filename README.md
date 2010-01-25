@@ -87,3 +87,16 @@ differ.
 If not defined, the redirect view will try to guess the proper domain by
 consulting the ``django.contrib.sites`` framework, if installed, or the
 requested domain, if not.
+
+#### ``SHORTURLS_DEFAULT_CONVERTER``
+
+The converter that is used to translate between short URLs and model IDs.
+Defaults to the built in base 62 conversion.
+
+Available converters:
+
+ - `shorturls.baseconv.base62` Base 62 encoding.
+ - `shorturls.baseconv.base32` [Douglas Crockford's base 32.](http://www.crockford.com/wrmg/base32.html)
+ - `shorturls.baseconv.hexconv` Hex encoding.
+ - `shorturls.baseconv.bin` Binary encoding, because why not.
+

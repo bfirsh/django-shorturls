@@ -4,9 +4,9 @@ from django.contrib.sites.models import Site, RequestSite
 from django.db import models
 from django.http import HttpResponsePermanentRedirect, Http404
 from django.shortcuts import get_object_or_404
-from shorturls.baseconv import base62
+from shorturls import default_converter
 
-def redirect(request, prefix, tiny, converter=base62):
+def redirect(request, prefix, tiny, converter=default_converter):
     """
     Redirect to a given object from a short URL.
     """
