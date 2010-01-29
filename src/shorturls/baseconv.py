@@ -84,3 +84,7 @@ class Base32Converter(BaseConverter):
 
 base32 = Base32Converter()
 
+if __name__ == '__main__':
+    import doctest
+    doctest.testmod()
+
