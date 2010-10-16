@@ -23,7 +23,7 @@ class RedirectViewTestCase(TestCase):
             settings.SHORT_BASE_URL = self.old_base
 
     def render(self, t, **c):
-        return template.Template('{% load shorturl %}'+t).render(c)
+        return template.Template('{% load shorturl %}'+t).render(template.Context(c))
         
     def test_shorturl(self):
         r = self.render('{% shorturl a %}', a=Animal.objects.get(id=12345))
