@@ -4,7 +4,7 @@ from django.contrib.sites.models import Site, RequestSite
 from django.db import models
 from django.http import HttpResponsePermanentRedirect, Http404
 from django.shortcuts import get_object_or_404
-from shorturls.baseconv import base62
+from shorturls.sequencemapper import SequenceMapper
 
 def redirect(request, prefix, tiny):
     """
@@ -18,7 +18,7 @@ def redirect(request, prefix, tiny):
         app_label, model_name = settings.SHORTEN_MODELS[prefix].split('.')
         model = models.get_model(app_label, model_name)
         if not model: raise ValueError
-        id = base62.to_decimal(tiny)
+        id = SequenceMapper.to_decimal(tiny)
     except (AttributeError, ValueError, KeyError):
         raise Http404('Bad prefix, model, SHORTEN_MODELS, or encoded ID.')
     
