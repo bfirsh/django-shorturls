@@ -8,7 +8,7 @@ Sample usage:
 >>> base20 = BaseConverter('0123456789abcdefghij')
 >>> base20.from_decimal(1234)
 '31e'
->>> base20.from_decimal('31e')
+>>> base20.to_decimal('31e')
 1234
 """
 
