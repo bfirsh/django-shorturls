@@ -1,4 +1,4 @@
-from django import template
+from django.template import Template, Context
 from django.conf import settings
 from django.test import TestCase
 from shorturls.tests.models import Animal, Vegetable, Mineral
@@ -23,7 +23,7 @@ class TemplateTagTestCase(TestCase):
             settings.SHORT_BASE_URL = self.old_base
 
     def render(self, t, **c):
-        return template.Template('{% load shorturl %}'+t).render(c)
+        return Template('{% load shorturl %}'+t).render(Context(c))
 
     def test_shorturl(self):
         r = self.render('{% shorturl a %}', a=Animal.objects.get(id=12345))
