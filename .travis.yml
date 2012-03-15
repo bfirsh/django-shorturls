@@ -13,4 +13,4 @@ env:
 install: pip install $DJANGO --use-mirrors
 
 # command to run tests
-script: django-admin.py test --pythonpath=src/shorturls/ --settings=testsettings
+script: django-admin.py test --pythonpath=src/ --settings=shorturls.testsettings
