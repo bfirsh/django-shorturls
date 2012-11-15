@@ -3,7 +3,7 @@ from django import template
 from django.conf import settings
 from django.core import urlresolvers
 from django.utils.safestring import mark_safe
-from shorturls.baseconv import base62
+from shorturls import default_converter as converter
 
 class ShortURL(template.Node):
     @classmethod
@@ -27,7 +27,7 @@ class ShortURL(template.Node):
         except (AttributeError, KeyError):
             return ''
         
-        tinyid = base62.from_decimal(obj.pk)
+        tinyid = converter.from_decimal(obj.pk)
                 
         if hasattr(settings, 'SHORT_BASE_URL') and settings.SHORT_BASE_URL:
             return urlparse.urljoin(settings.SHORT_BASE_URL, prefix+tinyid)

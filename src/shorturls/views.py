@@ -4,9 +4,9 @@ from django.contrib.sites.models import Site, RequestSite
 from django.db import models
 from django.http import HttpResponsePermanentRedirect, Http404
 from django.shortcuts import get_object_or_404
-from shorturls.baseconv import base62
+from shorturls import default_converter
 
-def redirect(request, prefix, tiny):
+def redirect(request, prefix, tiny, converter=default_converter):
     """
     Redirect to a given object from a short URL.
     """
@@ -16,11 +16,15 @@ def redirect(request, prefix, tiny):
     # any of that stuff goes wrong.
     try:
         app_label, model_name = settings.SHORTEN_MODELS[prefix].split('.')
-        model = models.get_model(app_label, model_name)
-        if not model: raise ValueError
-        id = base62.to_decimal(tiny)
-    except (AttributeError, ValueError, KeyError):
-        raise Http404('Bad prefix, model, SHORTEN_MODELS, or encoded ID.')
+    except KeyError:
+        raise Http404('Bad prefix.')
+    model = models.get_model(app_label, model_name)
+    if not model:
+        raise Http404('Bad model specified in SHORTEN_MODELS.')
+    try:
+        id = converter.to_decimal(tiny)
+    except ValueError:
+        raise Http404('Bad encoded ID.')
     
     # Try to look up the object. If it's not a valid object, or if it doesn't
     # have an absolute url, bail again.
@@ -51,3 +55,4 @@ def redirect(request, prefix, tiny):
         base = 'http://%s/' % RequestSite(request).domain
         
     return HttpResponsePermanentRedirect(urlparse.urljoin(base, url))
+
