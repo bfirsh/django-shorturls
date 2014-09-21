@@ -4,10 +4,17 @@ python:
   - "2.7"
 
 env:
-  - DJANGO="Django==1.2"
-  - DJANGO="Django==1.3"
-  - DJANGO="Django==1.4.15"
+  - DJANGO="Django>=1.4,<1.5"
+  - DJANGO="Django>=1.5,<1.6"
+  - DJANGO="Django>=1.6,<1.7"
+  - DJANGO="Django>=1.7,<1.8"
 
 install: pip install $DJANGO --use-mirrors
 
-script: django-admin.py test --pythonpath=src/ --settings=shorturls.testsettings
+script: cd src/shorturls; django-admin.py test --pythonpath=.. --settings=shorturls.testsettings
+
+matrix:
+  exclude:
+    - python: "2.6"
+      env: DJANGO="Django>=1.7,<1.8"
+
