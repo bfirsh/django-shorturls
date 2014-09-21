@@ -1,6 +1,9 @@
 django-shorturls
 ================
 
+[![Build Status](https://travis-ci.org/bfirsh/django-shorturls.svg?branch=master)](https://travis-ci.org/bfirsh/django-shorturls)
+[![PyPI version](https://badge.fury.io/py/django-shorturls.svg)](http://badge.fury.io/py/django-shorturls)
+
 A custom URL shortening app for Django, including easy ``rev=canonical``
 support.
 
@@ -11,11 +14,11 @@ slightly and packaged by Jacob Kaplan-Moss.
 Patches welcome: http://github.com/jacobian/django-shorturls
 
 Usage
-=====
+-----
 
 So, you want to host your own short URLs on your Django site:
 
-1. In your settings, define a set of prefixes for short URLs::
+1. In your settings, define a set of prefixes for short URLs:
 
         SHORTEN_MODELS = {
             'A': 'myapp.animal',
@@ -33,12 +36,12 @@ So, you want to host your own short URLs on your Django site:
    
    Make sure your models have a ``get_absolute_url()`` method defined.
     
-2. Wire up the redirect view by adding to your URLconf::
+2. Wire up the redirect view by adding to your URLconf:
 
         ('^short/', include('shorturls.urls'))
         
 3. If you'd like to quickly link to shortened URLs in your templates, stick
-   ``"shorturls"`` in ``INSTALLED_APPS``, and then in your templates do::
+   ``"shorturls"`` in ``INSTALLED_APPS``, and then in your templates do:
    
         {% load shorturl %}
         <a href="{% shorturl object %}">...</a>
@@ -58,26 +61,29 @@ That's it.
 If you'd like more control, keep reading.
 
 Settings
-========
+--------
 
 Available settings are:
 
-``SHORTEN_MODELS``
-    You've seen this one.
+#### ``SHORTEN_MODELS``
+
+You've seen this one.
     
-``SHORT_BASE_URL``
-    If defined, the ``shorturl`` and ``revcanonical`` template tags will
-    prefix generated URLs with this value. Use this if you've got a shorter
-    domain name you'd like to use for small URLs.
-    
-    For example, given ``SHORT_BASE_URL = 'http://exm.pl/'``, ``{% shorturl
-    obj %}`` would return something like ``http://exm.pl/AbCd``.
-    
-``SHORTEN_FULL_BASE_URL``
-    The domain to redirect to when redirecting away from the small URL.
-    Again, you'll use this if your short URL base and your "real" site
-    differ.
-    
-    If not defined, the redirect view will try to guess the proper domain by
-    consulting the ``django.contrib.sites`` framework, if installed, or the
-    requested domain, if not.
+#### ``SHORT_BASE_URL``
+
+If defined, the ``shorturl`` and ``revcanonical`` template tags will
+prefix generated URLs with this value. Use this if you've got a shorter
+domain name you'd like to use for small URLs.
+
+For example, given ``SHORT_BASE_URL = 'http://exm.pl/'``, ``{% shorturl
+obj %}`` would return something like ``http://exm.pl/AbCd``.
+
+#### ``SHORTEN_FULL_BASE_URL``
+
+The domain to redirect to when redirecting away from the small URL.
+Again, you'll use this if your short URL base and your "real" site
+differ.
+
+If not defined, the redirect view will try to guess the proper domain by
+consulting the ``django.contrib.sites`` framework, if installed, or the
+requested domain, if not.
