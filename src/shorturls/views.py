@@ -16,8 +16,12 @@ def redirect(request, prefix, tiny):
     # any of that stuff goes wrong.
     try:
         app_label, model_name = settings.SHORTEN_MODELS[prefix].split('.')
-        model = models.get_model(app_label, model_name)
-        if not model: raise ValueError
+        try:
+            model = models.get_model(app_label, model_name)
+        except LookupError:
+            raise Http404('Bad model.')
+        if not model:
+            raise ValueError
         id = base62.to_decimal(tiny)
     except (AttributeError, ValueError, KeyError):
         raise Http404('Bad prefix, model, SHORTEN_MODELS, or encoded ID.')
