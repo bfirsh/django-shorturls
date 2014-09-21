@@ -7,10 +7,10 @@ def read(fname):
 setup(
     name = "django-shorturls",
     version = "1.0.1",
-    url = 'http://github.com/jacobian/django-shorturls',
+    url = 'https://github.com/bfirsh/django-shorturls',
     license = 'BSD',
-    description = "A short URL (rev=cannonical) handler for Django apps.",
-    long_description = read('README'),
+    description = "A URL shortening app for Django.",
+    long_description = read('README.md'),
 
     author = 'Simon Willison, Jacob Kaplan-Moss',
     author_email = 'jacob@jacobian.org',
