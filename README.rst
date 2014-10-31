@@ -13,7 +13,7 @@ Most code was originally by Simon Willison; see
 http://simonwillison.net/2009/Apr/11/revcanonical/ for details. Improved
 slightly and packaged by Jacob Kaplan-Moss.
 
-Patches welcome: http://github.com/jacobian/django-shorturls
+Patches welcome: http://github.com/bfirsh/django-shorturls
 
 Usage
 =====
