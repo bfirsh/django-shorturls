@@ -10,7 +10,7 @@ setup(
     url = 'https://github.com/bfirsh/django-shorturls',
     license = 'BSD',
     description = "A URL shortening app for Django.",
-    long_description = read('README.md'),
+    long_description = read('README.rst'),
 
     author = 'Simon Willison, Jacob Kaplan-Moss',
     author_email = 'jacob@jacobian.org',
