@@ -1,8 +1,5 @@
-try:
-    from urllib.parse import urljoin, urlparse
-except ImportError as e:
-    import urlparse
-    import urlparse.urljoin
+from urllib.parse import urljoin
+
 from django import template
 from django.conf import settings
 from django.core import urlresolvers

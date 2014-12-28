@@ -1,5 +1,5 @@
 try:
-    from urllib.parse import urlparse
+    from urllib.parse import urljoin
 except ImportError as e:
     import urlparse
 from django.conf import settings
