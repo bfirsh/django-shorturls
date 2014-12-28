@@ -1,4 +1,7 @@
-import urlparse
+try:
+    from urllib.parse import urlparse
+except ImportError as e:
+    import urlparse
 from django import template
 from django.conf import settings
 from django.core import urlresolvers
