@@ -10,7 +10,7 @@ A custom URL shortening app for Django, including easy ``rev=canonical``
 support.
 
 Most code was originally by Simon Willison; see
-http://simonwillison.net/2009/Apr/11/revcanonical/ for details. Improved
+http://blog.simonwillison.net/post/57956849396/revcanonical/ for details. Improved
 slightly and packaged by Jacob Kaplan-Moss.
 
 Patches welcome: http://github.com/bfirsh/django-shorturls
