@@ -12,7 +12,7 @@ if hasattr(settings, 'SHORTURLS_DEFAULT_CONVERTER'):
     mod_name, conv_name = settings.SHORTURLS_DEFAULT_CONVERTER.rsplit('.', 1)
     try:
         mod = import_module(mod_name)
-    except ImportError, e:
+    except ImportError as e:
         raise ImproperlyConfigured('Could not load converter specified by SHORTURLS_DEFAULT_CONVERTER. Error was: %s' % e)
     try:
         default_converter = getattr(mod, conv_name)

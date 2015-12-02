@@ -1,10 +1,15 @@
-import urlparse
+try:
+    from urllib.parse import urljoin
+except ImportError as e:
+    import urlparse
 from django.conf import settings
 from django.contrib.sites.models import Site, RequestSite
 from django.db import models
 from django.http import HttpResponsePermanentRedirect, Http404
 from django.shortcuts import get_object_or_404
+
 from shorturls import default_converter
+
 
 def redirect(request, prefix, tiny, converter=default_converter):
     """
@@ -28,7 +33,7 @@ def redirect(request, prefix, tiny, converter=default_converter):
         id = converter.to_decimal(tiny)
     except ValueError:
         raise Http404('Bad encoded ID.')
-    
+
     # Try to look up the object. If it's not a valid object, or if it doesn't
     # have an absolute url, bail again.
     obj = get_object_or_404(model, pk=id)
@@ -36,25 +41,25 @@ def redirect(request, prefix, tiny, converter=default_converter):
         url = obj.get_absolute_url()
     except AttributeError:
         raise Http404("'%s' models don't have a get_absolute_url() method." % model.__name__)
-    
+
     # We might have to translate the URL -- the badly-named get_absolute_url
     # actually returns a domain-relative URL -- into a fully qualified one.
-    
+
     # If we got a fully-qualified URL, sweet.
     if urlparse.urlsplit(url)[0]:
         return HttpResponsePermanentRedirect(url)
-    
+
     # Otherwise, we need to make a full URL by prepending a base URL.
     # First, look for an explicit setting.
     if hasattr(settings, 'SHORTEN_FULL_BASE_URL') and settings.SHORTEN_FULL_BASE_URL:
         base = settings.SHORTEN_FULL_BASE_URL
-        
+
     # Next, if the sites app is enabled, redirect to the current site.
     elif Site._meta.installed:
         base = 'http://%s/' % Site.objects.get_current().domain
-        
+
     # Finally, fall back on the current request.
     else:
         base = 'http://%s/' % RequestSite(request).domain
-        
+
     return HttpResponsePermanentRedirect(urlparse.urljoin(base, url))
