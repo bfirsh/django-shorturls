@@ -14,7 +14,7 @@ class Animal(models.Model):
         return self.name
         
     def get_absolute_url(self):
-        return '/animal/%s/' % self.id
+        return '/animal/{0!s}/'.format(self.id)
         
 class Vegetable(models.Model):
     name = models.CharField(max_length=100)
@@ -26,7 +26,7 @@ class Vegetable(models.Model):
         return self.name
         
     def get_absolute_url(self):
-        return 'http://example.net/veggies/%s' % self.id
+        return 'http://example.net/veggies/{0!s}'.format(self.id)
     
 class Mineral(models.Model):
     name = models.CharField(max_length=100)

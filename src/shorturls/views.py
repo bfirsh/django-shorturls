@@ -35,7 +35,7 @@ def redirect(request, prefix, tiny, converter=default_converter):
     try:
         url = obj.get_absolute_url()
     except AttributeError:
-        raise Http404("'%s' models don't have a get_absolute_url() method." % model.__name__)
+        raise Http404("'{0!s}' models don't have a get_absolute_url() method.".format(model.__name__))
     
     # We might have to translate the URL -- the badly-named get_absolute_url
     # actually returns a domain-relative URL -- into a fully qualified one.
@@ -51,10 +51,10 @@ def redirect(request, prefix, tiny, converter=default_converter):
         
     # Next, if the sites app is enabled, redirect to the current site.
     elif Site._meta.installed:
-        base = 'http://%s/' % Site.objects.get_current().domain
+        base = 'http://{0!s}/'.format(Site.objects.get_current().domain)
         
     # Finally, fall back on the current request.
     else:
-        base = 'http://%s/' % RequestSite(request).domain
+        base = 'http://{0!s}/'.format(RequestSite(request).domain)
         
     return HttpResponsePermanentRedirect(urlparse.urljoin(base, url))
