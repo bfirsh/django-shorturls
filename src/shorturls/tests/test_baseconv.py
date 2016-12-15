@@ -5,7 +5,7 @@ from shorturls import baseconv
 class BaseConvTests(unittest.TestCase):
 
     def _test_converter(self, converter):
-        nums = [-10 ** 10, 10 ** 10] + range(-100, 100)
+        nums = [-10 ** 10, 10 ** 10] + list(range(-100, 100))
         for before in nums:
             after = converter.to_decimal(converter.from_decimal(before))
             self.assertEqual(before, after)

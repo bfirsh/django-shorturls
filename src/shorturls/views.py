@@ -1,4 +1,5 @@
-import urlparse
+from six.moves.urllib.parse import urljoin, urlsplit
+
 from django.apps import apps
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
@@ -17,7 +18,7 @@ def redirect(request, prefix, tiny, converter=default_converter):
     # any of that stuff goes wrong.
     try:
         app_label, model_name = settings.SHORTEN_MODELS[prefix].split('.')
-    except KeyError:
+    except (KeyError, ValueError):
         raise Http404('Bad prefix.')
     try:
         model = apps.get_model(app_label, model_name)
@@ -43,7 +44,7 @@ def redirect(request, prefix, tiny, converter=default_converter):
     # actually returns a domain-relative URL -- into a fully qualified one.
 
     # If we got a fully-qualified URL, sweet.
-    if urlparse.urlsplit(url)[0]:
+    if urlsplit(url)[0]:
         return HttpResponsePermanentRedirect(url)
 
     # Otherwise, we need to make a full URL by prepending a base URL.
@@ -55,4 +56,4 @@ def redirect(request, prefix, tiny, converter=default_converter):
     else:
         base = 'http://{0!s}/'.format(get_current_site(request).domain)
 
-    return HttpResponsePermanentRedirect(urlparse.urljoin(base, url))
+    return HttpResponsePermanentRedirect(urljoin(base, url))

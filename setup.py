@@ -18,7 +18,7 @@ setup(
     packages = find_packages('src'),
     package_dir = {'': 'src'},
     
-    install_requires = ['setuptools'],
+    install_requires = ['setuptools', 'six'],
 
     classifiers = [
         'Development Status :: 5 - Production/Stable',
