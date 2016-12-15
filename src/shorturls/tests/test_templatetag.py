@@ -3,6 +3,7 @@ from django.conf import settings
 from django.test import TestCase, override_settings
 from shorturls.tests.models import Animal, Vegetable, Mineral
 
+
 @override_settings(
     ROOT_URLCONF='shorturls.urls',
     SHORTEN_MODELS={
@@ -17,7 +18,7 @@ class TemplateTagTestCase(TestCase):
         settings.SHORT_BASE_URL = None
 
     def render(self, t, **c):
-        return Template('{% load shorturl %}'+t).render(Context(c))
+        return Template('{% load shorturl %}' + t).render(Context(c))
 
     def test_shorturl(self):
         r = self.render('{% shorturl a %}', a=Animal.objects.get(id=12345))

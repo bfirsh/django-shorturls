@@ -13,8 +13,10 @@ if hasattr(settings, 'SHORTURLS_DEFAULT_CONVERTER'):
     try:
         mod = import_module(mod_name)
     except ImportError, e:
-        raise ImproperlyConfigured('Could not load converter specified by SHORTURLS_DEFAULT_CONVERTER. Error was: {0!s}'.format(e))
+        raise ImproperlyConfigured(
+            'Could not load converter specified by SHORTURLS_DEFAULT_CONVERTER. Error was: {0!s}'.format(e))
     try:
         default_converter = getattr(mod, conv_name)
     except AttributeError:
-        raise ImproperlyConfigured('Could not load converter specified by SHORTURLS_DEFAULT_CONVERTER. {0!s} is not in {1!s}.'.format(conv_name, mod))
+        raise ImproperlyConfigured(
+            'Could not load converter specified by SHORTURLS_DEFAULT_CONVERTER. {0!s} is not in {1!s}.'.format(conv_name, mod))

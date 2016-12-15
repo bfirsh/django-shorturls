@@ -12,13 +12,14 @@ Sample usage:
 1234
 """
 
+
 class BaseConverter(object):
     decode_mapping = {}
-    
+
     def __init__(self, digits):
         self.digits = digits
         self.length = len(digits)
-    
+
     def from_decimal(self, i):
         if i < 0:
             i, neg = -i, 1
@@ -32,7 +33,7 @@ class BaseConverter(object):
         if neg:
             enc = '-' + enc
         return enc
-    
+
     def to_decimal(self, s):
         if self.decode_mapping:
             new = ''
@@ -55,12 +56,13 @@ class BaseConverter(object):
         if neg:
             decoded = -decoded
         return decoded
-    
+
 bin = BaseConverter('01')
 hexconv = BaseConverter('0123456789ABCDEF')
 base62 = BaseConverter(
     'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789abcdefghijklmnopqrstuvwxyz'
 )
+
 
 class Base32Converter(BaseConverter):
     """
@@ -71,10 +73,11 @@ class Base32Converter(BaseConverter):
         'i': '1',
         'l': '1',
     }
-    
+
     def __init__(self):
-        super(Base32Converter, self).__init__('0123456789abcdefghjkmnpqrstvwxyz')
-    
+        super(Base32Converter, self).__init__(
+            '0123456789abcdefghjkmnpqrstvwxyz')
+
     def to_decimal(self, s):
         return super(Base32Converter, self).to_decimal(s.lower())
 
@@ -83,4 +86,3 @@ base32 = Base32Converter()
 if __name__ == '__main__':
     import doctest
     doctest.testmod()
-

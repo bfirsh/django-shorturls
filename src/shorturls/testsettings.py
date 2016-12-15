@@ -9,9 +9,9 @@ DATABASE_NAME = '/tmp/shorturls.db'
 
 # For Django 1.3 and beyond
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.sqlite3'
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3'
+    }
 }
 
 INSTALLED_APPS = ['shorturls']
