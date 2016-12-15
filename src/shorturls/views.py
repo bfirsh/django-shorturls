@@ -1,6 +1,6 @@
 import urlparse
 from django.conf import settings
-from django.contrib.sites.models import Site, RequestSite
+from django.contrib.sites.shortcuts import get_current_site
 from django.db import models
 from django.http import HttpResponsePermanentRedirect, Http404
 from django.shortcuts import get_object_or_404
@@ -48,13 +48,9 @@ def redirect(request, prefix, tiny, converter=default_converter):
     # First, look for an explicit setting.
     if hasattr(settings, 'SHORTEN_FULL_BASE_URL') and settings.SHORTEN_FULL_BASE_URL:
         base = settings.SHORTEN_FULL_BASE_URL
-        
-    # Next, if the sites app is enabled, redirect to the current site.
-    elif Site._meta.installed:
-        base = 'http://{0!s}/'.format(Site.objects.get_current().domain)
-        
-    # Finally, fall back on the current request.
+
+    # Finally, fall back on the current request or site.
     else:
-        base = 'http://{0!s}/'.format(RequestSite(request).domain)
-        
+        base = 'http://{0!s}/'.format(get_current_site(request).domain)
+
     return HttpResponsePermanentRedirect(urlparse.urljoin(base, url))
