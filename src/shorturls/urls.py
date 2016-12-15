@@ -3,7 +3,7 @@ from django.conf.urls import *
 
 urlpatterns = patterns('', 
     url(
-        regex = '^(?P<prefix>%s)(?P<tiny>\w+)$' % '|'.join(settings.SHORTEN_MODELS.keys()),
+        regex = '^(?P<prefix>{0!s})(?P<tiny>\w+)$'.format('|'.join(settings.SHORTEN_MODELS.keys())),
         view  = 'shorturls.views.redirect',
     ),
 )

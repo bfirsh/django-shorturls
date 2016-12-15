@@ -28,7 +28,7 @@ class RedirectViewTestCase(TestCase):
         """
         Test the basic operation of a working redirect.
         """
-        response = self.client.get('/A%s' % enc(12345))
+        response = self.client.get('/A{0!s}'.format(enc(12345)))
         self.assertEqual(response.status_code, 301)
         self.assertEqual(response['Location'], 'http://example.com/animal/12345/')
         
@@ -37,7 +37,7 @@ class RedirectViewTestCase(TestCase):
         Test a relative redirect when the Sites app isn't installed.
         """
         settings.SHORTEN_FULL_BASE_URL = None
-        response = self.client.get('/A%s' % enc(54321), HTTP_HOST='example.org')
+        response = self.client.get('/A{0!s}'.format(enc(54321)), HTTP_HOST='example.org')
         self.assertEqual(response.status_code, 301)
         self.assertEqual(response['Location'], 'http://example.org/animal/54321/')
         
@@ -45,7 +45,7 @@ class RedirectViewTestCase(TestCase):
         """
         Test a redirect when the object returns a complete URL.
         """
-        response = self.client.get('/V%s' % enc(785))
+        response = self.client.get('/V{0!s}'.format(enc(785)))
         self.assertEqual(response.status_code, 301)
         self.assertEqual(response['Location'], 'http://example.net/veggies/785')
         
@@ -55,7 +55,7 @@ class RedirectViewTestCase(TestCase):
         self.assertEqual(404, self.client.get('/Vssssss').status_code)
 
     def test_model_without_get_absolute_url(self):
-        self.assertEqual(404, self.client.get('/M%s' % enc(10101)).status_code)
+        self.assertEqual(404, self.client.get('/M{0!s}'.format(enc(10101))).status_code)
         
 def enc(id):
     return base62.from_decimal(id)

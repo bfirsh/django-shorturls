@@ -10,7 +10,7 @@ class ShortURL(template.Node):
     def parse(cls, parser, token):
         parts = token.split_contents()
         if len(parts) != 2:
-            raise template.TemplateSyntaxError("%s takes exactly one argument" % parts[0])
+            raise template.TemplateSyntaxError("{0!s} takes exactly one argument".format(parts[0]))
         return cls(template.Variable(parts[1]))
         
     def __init__(self, obj):
@@ -43,14 +43,14 @@ class ShortURL(template.Node):
     def get_prefix(self, model):
         if not hasattr(self.__class__, '_prefixmap'):
             self.__class__._prefixmap = dict((m,p) for p,m in settings.SHORTEN_MODELS.items())
-        key = '%s.%s' % (model._meta.app_label, model.__class__.__name__.lower())
+        key = '{0!s}.{1!s}'.format(model._meta.app_label, model.__class__.__name__.lower())
         return self.__class__._prefixmap[key]
         
 class RevCanonical(ShortURL):
     def render(self, context):
         url = super(RevCanonical, self).render(context)
         if url:
-            return mark_safe('<link rev="canonical" href="%s">' % url)
+            return mark_safe('<link rev="canonical" href="{0!s}">'.format(url))
         else:
             return ''
 
