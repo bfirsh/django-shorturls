@@ -9,11 +9,17 @@ DATABASE_NAME = '/tmp/shorturls.db'
 
 # For Django 1.3 and beyond
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.sqlite3'
-  }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3'
+    }
 }
 
 INSTALLED_APPS = ['shorturls']
 ROOT_URLCONF = ['shorturls.urls']
-TEMPLATE_DIRS = (os.path.join(os.path.dirname(__file__), 'tests', 'templates'),)
+TEMPLATES = [
+    {
+        'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        'DIRS': [],
+        'APP_DIRS': True,
+    },
+]
