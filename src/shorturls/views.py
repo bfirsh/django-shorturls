@@ -1,7 +1,7 @@
 import urlparse
+from django.apps import apps
 from django.conf import settings
 from django.contrib.sites.shortcuts import get_current_site
-from django.db import models
 from django.http import HttpResponsePermanentRedirect, Http404
 from django.shortcuts import get_object_or_404
 from shorturls import default_converter
@@ -19,7 +19,7 @@ def redirect(request, prefix, tiny, converter=default_converter):
     except KeyError:
         raise Http404('Bad prefix.')
     try:
-        model = models.get_model(app_label, model_name)
+        model = apps.get_model(app_label, model_name)
     except LookupError:
         model = False
     if not model:

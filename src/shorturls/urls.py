@@ -1,9 +1,17 @@
 from django.conf import settings
-from django.conf.urls import *
+from django.conf.urls import url
+from django.http import HttpResponse
 
-urlpatterns = patterns('', 
+from . import views
+
+
+def handler404(req):
+    return HttpResponse(status=404)
+
+urlpatterns = [
     url(
-        regex = '^(?P<prefix>{0!s})(?P<tiny>\w+)$'.format('|'.join(settings.SHORTEN_MODELS.keys())),
-        view  = 'shorturls.views.redirect',
+        regex=r'^(?P<prefix>{0!s})(?P<tiny>\w+)$'.format(
+            '|'.join(settings.SHORTEN_MODELS.keys())),
+        view=views.redirect,
     ),
-)
+]

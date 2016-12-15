@@ -1,29 +1,22 @@
 from django.conf import settings
-from django.test import TestCase
+from django.test import TestCase, override_settings
 from shorturls.baseconv import base62
 
+
+@override_settings(
+    ROOT_URLCONF='shorturls.urls',
+    SHORTEN_MODELS={
+        'A': 'shorturls.animal',
+        'V': 'shorturls.vegetable',
+        'M': 'shorturls.mineral',
+        'bad': 'not.amodel',
+        'bad2': 'not.even.valid',
+    },
+    SHORTEN_FULL_BASE_URL='http://example.com',
+)
 class RedirectViewTestCase(TestCase):
-    urls = 'shorturls.urls'
     fixtures = ['shorturls-test-data.json']
-    
-    def setUp(self):
-        self.old_shorten = getattr(settings, 'SHORTEN_MODELS', None)
-        self.old_base = getattr(settings, 'SHORTEN_FULL_BASE_URL', None)
-        settings.SHORTEN_MODELS = {
-            'A': 'shorturls.animal',
-            'V': 'shorturls.vegetable',
-            'M': 'shorturls.mineral',
-            'bad': 'not.amodel',
-            'bad2': 'not.even.valid',
-        }
-        settings.SHORTEN_FULL_BASE_URL = 'http://example.com'
-        
-    def tearDown(self):
-        if self.old_shorten is not None:
-            settings.SHORTEN_MODELS = self.old_shorten
-        if self.old_base is not None:
-            settings.SHORTEN_FULL_BASE_URL = self.old_base
-    
+
     def test_redirect(self):
         """
         Test the basic operation of a working redirect.

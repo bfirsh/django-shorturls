@@ -3,7 +3,7 @@ from django import template
 from django.conf import settings
 from django.core import urlresolvers
 from django.utils.safestring import mark_safe
-from shorturls import default_converter as converter
+from shorturls import default_converter as converter, views
 
 class ShortURL(template.Node):
     @classmethod
@@ -33,7 +33,7 @@ class ShortURL(template.Node):
             return urlparse.urljoin(settings.SHORT_BASE_URL, prefix+tinyid)
         
         try:
-            return urlresolvers.reverse('shorturls.views.redirect', kwargs = {
+            return urlresolvers.reverse(views.redirect, kwargs={
                 'prefix': prefix,
                 'tiny': tinyid
             })
