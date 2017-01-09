@@ -31,7 +31,10 @@ class ShortURL(template.Node):
         except (AttributeError, KeyError):
             return ''
 
-        tinyid = converter.from_decimal(obj.pk)
+        if hasattr(settings, 'SHORTURLS_LOOKUP_FIELD') and settings.SHORTURLS_LOOKUP_FIELD:
+            tinyid = converter.from_decimal(getattr(obj, settings.SHORTURLS_LOOKUP_FIELD))
+        else:
+            tinyid = converter.from_decimal(obj.pk)
 
         if hasattr(settings, 'SHORT_BASE_URL') and settings.SHORT_BASE_URL:
             return urljoin(settings.SHORT_BASE_URL, prefix + tinyid)

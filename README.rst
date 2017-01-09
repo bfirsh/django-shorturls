@@ -70,6 +70,10 @@ Available settings are:
 ``SHORTEN_MODELS``
     You've seen this one.
     
+``SHORTURLS_LOOKUP_FIELD``
+    If defined, the model lookups will be performed against the specified
+    field rather than the default primary key.
+
 ``SHORT_BASE_URL``
     If defined, the ``shorturl`` and ``revcanonical`` template tags will
     prefix generated URLs with this value. Use this if you've got a shorter
