@@ -33,8 +33,8 @@ def redirect(request, prefix, tiny, converter=default_converter):
 
     # Try to look up the object. If it's not a valid object, or if it doesn't
     # have an absolute url, bail again.
-    if hasattr(settings, 'SHORTURLS_LOOKUP_FIELD') and settings.SHORTURLS_LOOKUP_FIELD:
-        kwargs = {settings.SHORTURLS_LOOKUP_FIELD: id}
+    if hasattr(model, 'SHORTURLS_LOOKUP_FIELD') and model.SHORTURLS_LOOKUP_FIELD:
+        kwargs = {model.SHORTURLS_LOOKUP_FIELD: id}
     else:
         kwargs = {'pk': id}
 
