@@ -11,7 +11,8 @@ support.
 
 Most code was originally by Simon Willison; see
 https://simonwillison.net/2009/Apr/11/revcanonical/ for details. Improved
-slightly and packaged by Jacob Kaplan-Moss.
+slightly and packaged by Jacob Kaplan-Moss. Currently maintained by
+Ben Firshman.
 
 Patches welcome: http://github.com/bfirsh/django-shorturls
 
