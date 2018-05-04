@@ -15,7 +15,6 @@ DATABASES = {
 }
 
 INSTALLED_APPS = ['shorturls']
-ROOT_URLCONF = ['shorturls.urls']
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
