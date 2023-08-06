@@ -33,7 +33,12 @@ def redirect(request, prefix, tiny, converter=default_converter):
 
     # Try to look up the object. If it's not a valid object, or if it doesn't
     # have an absolute url, bail again.
-    obj = get_object_or_404(model, pk=id)
+    if hasattr(model, 'SHORTURLS_LOOKUP_FIELD') and model.SHORTURLS_LOOKUP_FIELD:
+        kwargs = {model.SHORTURLS_LOOKUP_FIELD: id}
+    else:
+        kwargs = {'pk': id}
+
+    obj = get_object_or_404(model, **kwargs)
     try:
         url = obj.get_absolute_url()
     except AttributeError:
