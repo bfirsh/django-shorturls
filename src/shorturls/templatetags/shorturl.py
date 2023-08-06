@@ -2,7 +2,7 @@ from six.moves.urllib.parse import urljoin
 
 from django import template
 from django.conf import settings
-from django.core import urlresolvers
+from django.shortcuts import reverse, NoReverseMatch
 from django.utils.safestring import mark_safe
 from shorturls import default_converter as converter, views
 
@@ -40,11 +40,11 @@ class ShortURL(template.Node):
             return urljoin(settings.SHORT_BASE_URL, prefix + tinyid)
 
         try:
-            return urlresolvers.reverse(views.redirect, kwargs={
+            return reverse(views.redirect, kwargs={
                 'prefix': prefix,
                 'tiny': tinyid
             })
-        except urlresolvers.NoReverseMatch:
+        except NoReverseMatch:
             return ''
 
     def get_prefix(self, model):
