@@ -10,8 +10,9 @@ A custom URL shortening app for Django, including easy ``rev=canonical``
 support.
 
 Most code was originally by Simon Willison; see
-http://blog.simonwillison.net/post/57956849396/revcanonical/ for details. Improved
-slightly and packaged by Jacob Kaplan-Moss.
+https://simonwillison.net/2009/Apr/11/revcanonical/ for details. Improved
+slightly and packaged by Jacob Kaplan-Moss. Currently maintained by
+Ben Firshman.
 
 Patches welcome: http://github.com/bfirsh/django-shorturls
 
@@ -20,8 +21,10 @@ Usage
 
 So, you want to host your own short URLs on your Django site:
 
-1. In your settings, define a set of prefixes for short URLs::
+1. In your settings, define a set of prefixes for short URLs:
 
+   .. code-block:: python
+   
         SHORTEN_MODELS = {
             'A': 'myapp.animal',
             'V': 'myapp.vegetable',
@@ -38,20 +41,26 @@ So, you want to host your own short URLs on your Django site:
    
    Make sure your models have a ``get_absolute_url()`` method defined.
     
-2. Wire up the redirect view by adding to your URLconf::
+2. Wire up the redirect view by adding to your URLconf:
 
+   .. code-block:: python
+   
         ('^short/', include('shorturls.urls'))
         
 3. If you'd like to quickly link to shortened URLs in your templates, stick
-   ``"shorturls"`` in ``INSTALLED_APPS``, and then in your templates do::
+   ``"shorturls"`` in ``INSTALLED_APPS``, and then in your templates do:
+   
+   .. code-block:: html+django
    
         {% load shorturl %}
         <a href="{% shorturl object %}">...</a>
         
    (where ``object`` is a model instance).
   
-   Alternatively::
+   Alternatively:
   
+   .. code-block:: html+django
+   
         {% load shorturl %}
         {% revcanonical object %}
         
