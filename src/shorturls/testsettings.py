@@ -1,21 +1,28 @@
-import os
-
-DEBUG = TEMPLATE_DEBUG = True
+DEBUG = True
 SECRET_KEY = '123'
+ALLOWED_HOSTS = ['*']
 
-# For Pre-Django 1.3
-DATABASE_ENGINE = 'sqlite3'
-DATABASE_NAME = '/tmp/shorturls.db'
-
-# For Django 1.3 and beyond
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3'
     }
 }
 
-INSTALLED_APPS = ['shorturls']
-ROOT_URLCONF = ['shorturls.urls']
+DEFAULT_AUTO_FIELD = 'django.db.models.AutoField'
+
+INSTALLED_APPS = [
+    'django.contrib.contenttypes',
+    'shorturls',
+]
+ROOT_URLCONF = 'shorturls.urls'
+
+SHORTEN_MODELS = {
+    'A': 'shorturls.animal',
+    'V': 'shorturls.vegetable',
+    'M': 'shorturls.mineral',
+    'bad': 'not.amodel',
+    'bad2': 'not.even.valid',
+}
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
