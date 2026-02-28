@@ -1,0 +1,36 @@
+[build-system]
+requires = ["setuptools>=68.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "django-shorturls"
+version = "2.0.0"
+description = "A URL shortening app for Django."
+readme = "README.rst"
+license = "BSD-3-Clause"
+requires-python = ">=3.10"
+authors = [
+    { name = "Simon Willison" },
+    { name = "Jacob Kaplan-Moss", email = "jacob@jacobian.org" },
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Framework :: Django",
+    "Framework :: Django :: 4.2",
+    "Framework :: Django :: 5.2",
+    "Intended Audience :: Developers",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Topic :: Internet :: WWW/HTTP",
+]
+
+[project.urls]
+Homepage = "https://github.com/bfirsh/django-shorturls"
+
+[tool.setuptools.packages.find]
+where = ["src"]
