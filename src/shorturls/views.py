@@ -1,4 +1,4 @@
-from six.moves.urllib.parse import urljoin, urlsplit
+from urllib.parse import urljoin, urlsplit
 
 from django.apps import apps
 from django.conf import settings

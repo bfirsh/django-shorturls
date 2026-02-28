@@ -1,8 +1,8 @@
-from six.moves.urllib.parse import urljoin
+from urllib.parse import urljoin
 
 from django import template
 from django.conf import settings
-from django.core import urlresolvers
+from django import urls as urlresolvers
 from django.utils.safestring import mark_safe
 from shorturls import default_converter as converter, views
 
