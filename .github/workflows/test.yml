@@ -1,0 +1,39 @@
+name: Tests
+
+on:
+  push:
+    branches: [master]
+  pull_request:
+    branches: [master]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        python-version: ['3.10', '3.12', '3.13']
+        django-version:
+          - 'Django>=4.2,<5.0'
+          - 'Django>=5.2,<6.0'
+        exclude:
+          - python-version: '3.13'
+            django-version: 'Django>=4.2,<5.0'
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python ${{ matrix.python-version }}
+        uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python-version }}
+
+      - name: Install dependencies
+        run: |
+          pip install "${{ matrix.django-version }}"
+          pip install build
+          python -m build
+          pip install dist/*.whl
+
+      - name: Run tests
+        run: script/test
