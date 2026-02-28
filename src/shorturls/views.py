@@ -1,4 +1,4 @@
-from six.moves.urllib.parse import urljoin, urlsplit
+from urllib.parse import urljoin, urlsplit
 
 from django.apps import apps
 from django.conf import settings
@@ -38,7 +38,7 @@ def redirect(request, prefix, tiny, converter=default_converter):
         url = obj.get_absolute_url()
     except AttributeError:
         raise Http404(
-            "'{0!s}' models don't have a get_absolute_url() method.".format(model.__name__))
+            f"'{model.__name__}' models don't have a get_absolute_url() method.")
 
     # We might have to translate the URL -- the badly-named get_absolute_url
     # actually returns a domain-relative URL -- into a fully qualified one.
@@ -54,6 +54,6 @@ def redirect(request, prefix, tiny, converter=default_converter):
 
     # Finally, fall back on the current request or site.
     else:
-        base = 'http://{0!s}/'.format(get_current_site(request).domain)
+        base = f'http://{get_current_site(request).domain}/'
 
     return HttpResponsePermanentRedirect(urljoin(base, url))

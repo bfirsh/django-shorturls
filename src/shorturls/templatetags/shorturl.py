@@ -1,8 +1,8 @@
-from six.moves.urllib.parse import urljoin
+from urllib.parse import urljoin
 
 from django import template
 from django.conf import settings
-from django.core import urlresolvers
+from django.urls import reverse, NoReverseMatch
 from django.utils.safestring import mark_safe
 from shorturls import default_converter as converter, views
 
@@ -14,7 +14,7 @@ class ShortURL(template.Node):
         parts = token.split_contents()
         if len(parts) != 2:
             raise template.TemplateSyntaxError(
-                "{0!s} takes exactly one argument".format(parts[0]))
+                f"{parts[0]} takes exactly one argument")
         return cls(template.Variable(parts[1]))
 
     def __init__(self, obj):
@@ -37,28 +37,27 @@ class ShortURL(template.Node):
             return urljoin(settings.SHORT_BASE_URL, prefix + tinyid)
 
         try:
-            return urlresolvers.reverse(views.redirect, kwargs={
+            return reverse(views.redirect, kwargs={
                 'prefix': prefix,
                 'tiny': tinyid
             })
-        except urlresolvers.NoReverseMatch:
+        except NoReverseMatch:
             return ''
 
     def get_prefix(self, model):
         if not hasattr(self.__class__, '_prefixmap'):
             self.__class__._prefixmap = dict(
                 (m, p) for p, m in settings.SHORTEN_MODELS.items())
-        key = '{0!s}.{1!s}'.format(
-            model._meta.app_label, model.__class__.__name__.lower())
+        key = f'{model._meta.app_label}.{model.__class__.__name__.lower()}'
         return self.__class__._prefixmap[key]
 
 
 class RevCanonical(ShortURL):
 
     def render(self, context):
-        url = super(RevCanonical, self).render(context)
+        url = super().render(context)
         if url:
-            return mark_safe('<link rev="canonical" href="{0!s}">'.format(url))
+            return mark_safe(f'<link rev="canonical" href="{url}">')
         else:
             return ''
 

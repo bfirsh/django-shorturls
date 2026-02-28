@@ -11,11 +11,11 @@ class Animal(models.Model):
     class Meta:
         app_label = 'shorturls'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return '/animal/{0!s}/'.format(self.id)
+        return f'/animal/{self.id}/'
 
 
 class Vegetable(models.Model):
@@ -24,11 +24,11 @@ class Vegetable(models.Model):
     class Meta:
         app_label = 'shorturls'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
 
     def get_absolute_url(self):
-        return 'http://example.net/veggies/{0!s}'.format(self.id)
+        return f'http://example.net/veggies/{self.id}'
 
 
 class Mineral(models.Model):
@@ -37,5 +37,5 @@ class Mineral(models.Model):
     class Meta:
         app_label = 'shorturls'
 
-    def __unicode__(self):
+    def __str__(self):
         return self.name
