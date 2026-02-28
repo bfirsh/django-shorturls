@@ -1,11 +1,6 @@
 django-shorturls
 ================
 
-.. image:: https://travis-ci.org/bfirsh/django-shorturls.svg?branch=master
-    :target: https://travis-ci.org/bfirsh/django-shorturls
-.. image:: https://badge.fury.io/py/django-shorturls.svg
-    :target: http://badge.fury.io/py/django-shorturls
-
 A custom URL shortening app for Django, including easy ``rev=canonical``
 support.
 

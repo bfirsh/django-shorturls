@@ -1,9 +1,7 @@
+from importlib import import_module
+
 from django.conf import settings
 from django.core.exceptions import ImproperlyConfigured
-try:
-    from importlib import import_module
-except:
-    from django.utils.importlib import import_module
 from shorturls import baseconv
 
 default_converter = baseconv.base62
